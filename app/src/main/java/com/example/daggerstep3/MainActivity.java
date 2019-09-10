@@ -9,7 +9,6 @@ import dagger.Component;
 
 public class MainActivity extends AppCompatActivity {
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -17,14 +16,18 @@ public class MainActivity extends AppCompatActivity {
 
         //FortuneMachine fortuneMachine = new FortuneMachine();
         Machine fortuneMachine;
-        fortuneMachine = DaggerMainActivity_Machine.create();
+        // fortuneMachine = DaggerMainActivity_Machine.create();
+        fortuneMachine = DaggerMainActivity_Machine.builder()
+                .fortuneModule(new FortuneModule())
+                .build();
         String result = fortuneMachine.maker().checkFortune();
 
         Log.w( "DEBUG_DATA", "result = " + result);
     }
 
     // Dagger2で依存するオブジェクトを記載
-    @Component
+    // 使用するモジュールを記載
+    @Component(modules = FortuneModule.class)
     interface Machine{
         FortuneMachine maker();
     }

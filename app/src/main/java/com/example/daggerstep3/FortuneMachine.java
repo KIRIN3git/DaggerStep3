@@ -7,9 +7,8 @@ import javax.inject.Inject;
 public class FortuneMachine {
 
     // これでNewしているのと同じ扱い
-    // 注入されていて依存関係が分離できている？
     @Inject
-    TwiterClient twiterClient;
+    Client clinet;
 
     String[] fortunes = {"大吉","中吉","小吉","凶","大凶"};
 
@@ -20,7 +19,7 @@ public class FortuneMachine {
 
     public String checkFortune(){
         int no = getRandomNo();
-        twiterClient.postTwitter(fortunes[no]);
+        clinet.postData(fortunes[no]);
         return fortunes[no];
     }
 
